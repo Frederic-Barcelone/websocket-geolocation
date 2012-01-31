@@ -1,6 +1,7 @@
 WebsoketGeolocation::Application.routes.draw do
   devise_for :users
 
+  post '/api/xmlrpc', :to => 'xmlrpc#xe_index'
   get "login/index"
 
   # The priority is based upon order of creation:

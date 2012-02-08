@@ -5,7 +5,7 @@ class XmlrpcController < ApplicationController
   def authenticate(email, certification_code)
     if user = User.find_by_email_and_certification_code(email,certification_code)
       device = user.devices.create
-      return device.guid
+      return device.uuid
     end
     return false
   end

@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20120131092858) do
 
   create_table "devices", :force => true do |t|
     t.integer  "user_id"
-    t.string   "guid"
+    t.string   "uuid"
     t.string   "model"
     t.string   "imei"
     t.datetime "created_at", :null => false

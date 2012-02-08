@@ -1,0 +1,57 @@
+$width: 785px;
+/* ========HEADER CUSTOMIZE======== */
+#header {
+  $title_color: #ff6699;
+  $title_bg_color: #4f3333;
+  background: $title_bg_color;
+  width: $width;
+  h1 {
+    margin:0;
+    padding:0 10px;
+    font-size:24px;
+    color: $title_color;
+    line-height:80px;
+
+    a {
+      color: $title_color;
+      &:hover {
+        color:#DF8713;
+      }
+    }
+  }
+}
+/* ========MENU CUSTOMIZE======== */
+#menu {
+  ul {
+    margin:0 -1px 0 0;
+    padding:0;
+    list-style:none;
+
+    &:after{
+      content:"";
+      display:block;
+      height:0;
+      clear:both;
+      visibility:hidden;
+    }
+  }
+
+  li {
+    float:left;
+    margin-right:1px;
+    background:#ddd;
+    a {
+      display:block;
+      width:130px;
+      color:#fff;
+      text-align:center;
+      line-height:2.5;
+      background:#9C6565;
+
+      &:hover {
+        color:#fff;
+        background:#DF8713;
+      }
+    }
+  }
+}

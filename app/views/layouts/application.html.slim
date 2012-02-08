@@ -3,10 +3,21 @@ html
   head
     title WebsoketGeolocation
     = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag    "layout"
     = javascript_include_tag "application"
     = csrf_meta_tags
   body
+    #header
+      h1
+        a href="#" WebsocketGeolocation
+    #menu
+      ul
+        li
+          a href="#" > top
+        li
+          a href="#" > devices
     #contents
       p.notice= notice
       p.alert= alert
       = yield
+    #footer

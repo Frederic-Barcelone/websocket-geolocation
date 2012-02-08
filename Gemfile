@@ -31,6 +31,7 @@ group :test, :development do
   gem 'rb-fsevent'
   gem 'guard-spork'
   gem 'guard-rspec'
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 # To use ActiveModel has_secure_password
@@ -44,6 +45,3 @@ end
 
 # Deploy with Capistrano
 # gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'

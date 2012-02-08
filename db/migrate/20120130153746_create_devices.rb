@@ -5,7 +5,6 @@ class CreateDevices < ActiveRecord::Migration
       t.string :guid
       t.string :model
       t.string :imei
-      t.string :certification_code
 
       t.timestamps
     end

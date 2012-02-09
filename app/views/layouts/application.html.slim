@@ -10,12 +10,18 @@ html
     #header
       h1
         a href="#" WebsocketGeolocation
+      ul.headerlink
+        - if user_signed_in?
+          li= link_to "ログアウト", destroy_user_session_path, :method => :delete
+        - else
+          li= link_to "ログイン", new_user_session_path
+
     #menu
       ul
         li
-          a href="#" > top
+          a href="#" Top
         li
-          a href="#" > devices
+          a href="#" Devices
     #contents
       p.notice= notice
       p.alert= alert

@@ -18,10 +18,8 @@ html
 
     #menu
       ul
-        li
-          a href="#" Top
-        li
-          a href="#" Devices
+        li= link_to "トップ", root_path
+        li= link_to "デバイス", devices_path
     #contents
       p.notice= notice
       p.alert= alert

@@ -2,6 +2,7 @@ class DevicesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @devices = current_user.devices
   end
 
   def show

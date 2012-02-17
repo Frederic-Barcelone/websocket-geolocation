@@ -1,8 +1,9 @@
 class XmlrpcController < ApplicationController
-  include XmlrpcEndpoint
-  include XmlrpcError
   skip_before_filter :verify_authenticity_token
-  exposes_xmlrpc_methods
+
+  include XmlrpcEndpoint::InstanceMethods
+  include XmlrpcEndpoint::Error
+  before_filter :add_method_handlers, :only => [:xe_index]
 
   def authenticate(email, certification_code)
     if user = User.find_by_email_and_certification_code(email,certification_code)

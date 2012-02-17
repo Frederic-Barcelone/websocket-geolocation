@@ -1,23 +1,9 @@
+# -*- coding: utf-8 -*-
+require "xmlrpc/parser"
+require "xmlrpc/server"
+
 module XmlrpcEndpoint
-  def self.included(controller)
-    controller.extend(ClassMethods)
-  end
-
-  module ClassMethods
-    def exposes_xmlrpc_methods(options = {})
-      configuration = { :method_prefix => nil }
-      configuration.update(options) if options.is_a?(Hash)
-
-      before_filter(:add_method_handlers, :only => [:xe_index])
-      class_eval <<-EOV
-            require 'xmlrpc/server'
-            include XmlrpcEndpoint::InstanceMethods
-      EOV
-    end
-  end
-
   module InstanceMethods
-    # TODO: add route automatically for this?
     def xe_index
       result = @xmlrpc_server.process(request.body)
       puts "\n\n----- BEGIN RESULT -----\n#{result}----- END RESULT -----\n\n"
@@ -28,7 +14,6 @@ module XmlrpcEndpoint
 
     def add_method_handlers
       @xmlrpc_server = LibXMLRPCServer.new
-      # loop through all the methods, adding them as handlers
       self.class.instance_methods(false).each do |method|
         unless method == 'xe_index'
           puts "Adding XMLRPC method for #{method.to_s}"
@@ -37,6 +22,46 @@ module XmlrpcEndpoint
           end
         end
       end
+    end
+  end
+
+  module Error
+    class UndefinedXmlrpcError < StandardError; end
+    class AbstractXmlrpcError < XMLRPC::FaultException
+
+      def initialize
+        super(error_code, message)
+      end
+
+      def error_code
+        raise UndefinedXmlrpcError.new("error_codeが定義されていません")
+      end
+
+      def message
+        self.class.to_s.split("::").last
+      end
+
+      def to_h
+        super.merge("Success" => false)
+      end
+    end
+
+    class UserNotFoundError < AbstractXmlrpcError
+      def error_code; 001 end
+    end
+    class DeviceNotFoundError < AbstractXmlrpcError
+      def error_code; 002 end
+    end
+    class InternalServerError < AbstractXmlrpcError
+      def error_code; 999 end
+    end
+  end
+
+  class LibXMLRPCServer < XMLRPC::BasicServer
+    def process(data)
+      parsed = LibXMLRPC::Parser.new(data)
+      method, params = parsed.method, parsed.params
+      handle(method, *params)
     end
   end
 end

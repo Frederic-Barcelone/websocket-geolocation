@@ -12,10 +12,6 @@ module XmlrpcEndpoint
       class_eval <<-EOV
             require 'xmlrpc/server'
             include XmlrpcEndpoint::InstanceMethods
-
-            def xe_method_prefix
-              '#{configuration[:method_prefix]}'
-            end
       EOV
     end
   end
@@ -31,12 +27,12 @@ module XmlrpcEndpoint
     private
 
     def add_method_handlers
-      @xmlrpc_server = XMLRPC::BasicServer.new
+      @xmlrpc_server = LibXMLRPCServer.new
       # loop through all the methods, adding them as handlers
       self.class.instance_methods(false).each do |method|
-        unless ['xe_index', 'xe_method_prefix'].member?(method)
+        unless method == 'xe_index'
           puts "Adding XMLRPC method for #{method.to_s}"
-          @xmlrpc_server.add_handler(xe_method_prefix + method.try(:to_s)) do |*args|
+          @xmlrpc_server.add_handler(method.try(:to_s)) do |*args|
             self.send(method.to_sym, *args)
           end
         end

@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.1'
 gem 'devise'
 gem 'uuidtools'
+gem 'libxml-ruby'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

@@ -1,6 +1,7 @@
 WebsoketGeolocation::Application.routes.draw do
   devise_for :users
 
+  #xmlrpc_endpointモジュールを使う準備
   post '/api/xmlrpc', :to => 'xmlrpc#xe_index'
   get "login/index"
 

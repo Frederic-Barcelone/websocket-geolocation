@@ -1,6 +1,7 @@
 class XmlrpcController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
+  #XmlrpcEndpointモジュールを使う準備
   include XmlrpcEndpoint::InstanceMethods
   include XmlrpcEndpoint::Error
   before_filter :add_method_handlers, :only => [:xe_index]

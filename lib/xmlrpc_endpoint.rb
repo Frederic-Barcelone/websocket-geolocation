@@ -52,6 +52,9 @@ module XmlrpcEndpoint
     class DeviceNotFoundError < AbstractXmlrpcError
       def error_code; 002 end
     end
+    class DeviceImeiNotFoundError < AbstractXmlrpcError
+      def error_code; 003 end
+    end
     class InternalServerError < AbstractXmlrpcError
       def error_code; 999 end
     end

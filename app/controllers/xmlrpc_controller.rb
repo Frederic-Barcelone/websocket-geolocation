@@ -6,10 +6,16 @@ class XmlrpcController < ApplicationController
   include XmlrpcEndpoint::Error
   before_filter :add_method_handlers, :only => [:xe_index]
 
-  def authenticate(email, certification_code)
+  def authenticate(email, certification_code, system)
     if user = User.find_by_email_and_certification_code(email,certification_code)
-      device = user.devices.create
-      return device.uuid
+      imei = system.delete("imei")
+      raise DeviceImeiNotFoundError if imei.blank?
+      android = user.androids.find_or_create_by_imei(imei)
+      system.each_pair do |key, value|
+        android.additional_device_informations.create(:key => key, :value => value)
+      end
+
+      return android.uuid
     else
       raise UserNotFoundError
     end

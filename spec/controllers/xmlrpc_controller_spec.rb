@@ -3,10 +3,10 @@ require 'spec_helper'
 
 describe XmlrpcController do
   describe "#set_location" do
-    subject {XmlrpcController.new.send(:set_location, @device_uuid, @longitude, @latitude)}
+    subject {XmlrpcController.new.send(:set_location, @android_uuid, @longitude, @latitude)}
     context "Deviceが存在しない場合" do
       before do
-        @device_uuid = "hogehogepiyopiyo"
+        @android_uuid = "hogehogepiyopiyo"
       end
       it "DeviceNotFoundError" do
         expect{ subject }.to raise_error("DeviceNotFoundError")
@@ -14,9 +14,9 @@ describe XmlrpcController do
     end
     context "Deviceが存在する場合" do
       before do
-        @device = Factory(:device1)
-        @user = Factory(:user1, :devices => [@device])
-        @device_uuid = @device.uuid
+        @android = Factory(:android1)
+        @user = Factory(:user1, :androids => [@android])
+        @android_uuid = @android.uuid
       end
       it "エラーが帰ってこないこと" do
         expect{ subject }.to_not raise_error("DeviceNotFoundError")
@@ -39,21 +39,42 @@ describe XmlrpcController do
     end
   end
   describe "#authenticate" do
-    subject {XmlrpcController.new.send(:authenticate, @user.email, @user.certification_code)}
+    subject {XmlrpcController.new.send(:authenticate, @user.email, @user.certification_code, @system)}
     before do
       @user = Factory(:user1)
+      @system = {"imei" => Factory.next(:imei)}
     end
     context "正しいemail,certification_code" do
-      it "認証できること" do
-        should_not be_false
+      context "新規に認証する場合" do
+        it "認証できること" do
+          should_not be_false
+        end
+        it "uuidが返ること" do
+          should match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/)
+        end
+        it "deviceが作成されて１増えること" do
+          expect {
+            subject
+          }.should change(Device, :count).by(1)
+        end
       end
-      it "uuidが返ること" do
-        should match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/)
-      end
-      it "deviceが作成されて１増えること" do
-        expect {
-          subject
-        }.should change(Device, :count).by(1)
+
+      context "すでに認証したIMEIがある場合" do
+        before do
+          @android = Factory(:android1, :user => @user)
+          @system = {"imei" => @android.imei}
+        end
+        it "認証できること" do
+          should_not be_false
+        end
+        it "同じUUIDが帰ってくること" do
+          should == @android.uuid
+        end
+        it "deviceが新たに作成されないこと" do
+          expect {
+            subject
+          }.should_not change(Device, :count)
+        end
       end
     end
     context "正email,不正certification_code" do

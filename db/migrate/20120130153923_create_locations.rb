@@ -7,5 +7,6 @@ class CreateLocations < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :locations, :device_id
   end
 end

@@ -8,16 +8,16 @@ Factory.sequence :uuid do |n|
   "#{n}" * 12
 end
 
-Factory.sequence :model do |n|
-  "model#{n}"
-end
-
 Factory.sequence :imei do |n|
   "imei#{n}"
 end
 
-Factory.define :device1, :class => Device do |u|
-  u.uuid Factory.next :uuid
-  u.model Factory.next :model
-  u.imei Factory.next :imei
+FactoryGirl.define do
+  factory :device do
+    uuid Factory.next :uuid
+  end
+
+  factory :android1, :class => Android do
+    imei Factory.next :imei
+  end
 end

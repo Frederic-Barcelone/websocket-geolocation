@@ -11,16 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120131092858) do
+ActiveRecord::Schema.define(:version => 20120218134734) do
+
+  create_table "additional_device_informations", :force => true do |t|
+    t.integer  "device_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "additional_device_informations", ["device_id"], :name => "index_additional_device_informations_on_device_id"
+  add_index "additional_device_informations", ["key", "value"], :name => "index_additional_device_informations_on_key_and_value"
+
+  create_table "androids", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "devices", :force => true do |t|
     t.integer  "user_id"
+    t.string   "type"
     t.string   "uuid"
-    t.string   "model"
     t.string   "imei"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "devices", ["type", "user_id"], :name => "index_devices_on_type_and_user_id"
+  add_index "devices", ["uuid"], :name => "index_devices_on_uuid", :unique => true
 
   create_table "locations", :force => true do |t|
     t.integer  "device_id"
@@ -29,6 +48,8 @@ ActiveRecord::Schema.define(:version => 20120131092858) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "locations", ["device_id"], :name => "index_locations_on_device_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -47,7 +68,7 @@ ActiveRecord::Schema.define(:version => 20120131092858) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["email", "certification_code"], :name => "index_users_on_email_and_certification_code", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

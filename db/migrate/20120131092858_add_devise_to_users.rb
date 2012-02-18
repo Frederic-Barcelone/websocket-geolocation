@@ -40,8 +40,8 @@ class AddDeviseToUsers < ActiveRecord::Migration
       # Uncomment below if timestamps were not included in your original model.
       # t.timestamps
     end
-
-    add_index :users, :email,                :unique => true
+    #emailとcertification_codeの複合インデックスに変更
+    add_index :users, [:email,:certification_code],                :unique => true
     add_index :users, :reset_password_token, :unique => true
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true

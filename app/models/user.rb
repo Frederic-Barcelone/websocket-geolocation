@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   has_many :devices
+  has_many :androids
 
   before_create :generate_certification_code
   def generate_certification_code

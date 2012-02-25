@@ -3,3 +3,7 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
+
+ActionDispatch::ParamsParser::DEFAULT_PARSERS[Mime::Type.lookup('application/xml')] = lambda do |body|
+  return false
+end

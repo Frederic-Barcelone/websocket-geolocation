@@ -5,7 +5,7 @@ gem 'devise'
 gem 'uuidtools'
 gem 'libxml-ruby'
 gem 'easy_xmlrpc', :git => "git://github.com/mudai/easy_xmlrpc.git"
-
+gem 'activerecord-import'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

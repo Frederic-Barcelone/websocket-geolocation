@@ -7,7 +7,6 @@ class CreateAdditionalDeviceInformations < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :additional_device_informations, :device_id
-    add_index :additional_device_informations, [:key,:value]
+    add_index :additional_device_informations, [:device_id, :key], :unique => true
   end
 end

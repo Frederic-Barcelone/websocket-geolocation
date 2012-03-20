@@ -12,9 +12,12 @@ class XmlrpcController < ApplicationController
       imei = system.delete("imei")
       raise device_imei_not_found_error if imei.blank?
       android = user.androids.find_or_create_by_imei(imei)
-      system.each_pair do |key, value|
-        android.additional_device_informations.create(:key => key, :value => value)
-      end
+
+      values = system.inject([]) do |result, v|
+                 result << android.additional_device_informations.new(:key => v[0], :value => v[1])
+               end
+
+      AdditionalDeviceInformation.import values, :on_duplicate_key_update => [:value, :updated_at]
 
       return android.uuid
     else

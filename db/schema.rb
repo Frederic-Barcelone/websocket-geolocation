@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120218134734) do
+ActiveRecord::Schema.define(:version => 20120218103429) do
 
   create_table "additional_device_informations", :force => true do |t|
     t.integer  "device_id"
@@ -21,13 +21,7 @@ ActiveRecord::Schema.define(:version => 20120218134734) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "additional_device_informations", ["device_id"], :name => "index_additional_device_informations_on_device_id"
-  add_index "additional_device_informations", ["key", "value"], :name => "index_additional_device_informations_on_key_and_value"
-
-  create_table "androids", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+  add_index "additional_device_informations", ["device_id", "key"], :name => "index_additional_device_informations_on_device_id_and_key", :unique => true
 
   create_table "devices", :force => true do |t|
     t.integer  "user_id"

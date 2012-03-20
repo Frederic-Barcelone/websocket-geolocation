@@ -12,7 +12,7 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: websoket-geolocation_development
+  database: websocket-geolocation_development
   pool: 5
   username: root
   password:
@@ -25,7 +25,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: websoket-geolocation_test
+  database: websocket-geolocation_test
   pool: 5
   username: root
   password:
@@ -35,7 +35,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: websoket-geolocation_production
+  database: websocket-geolocation_production
   pool: 5
   username: root
   password:

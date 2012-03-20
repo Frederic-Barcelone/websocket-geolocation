@@ -32,12 +32,6 @@ class XmlrpcController < ApplicationController
     else
       raise device_not_found_error
     end
-    return_success
-  end
-
-  private
-  def return_success
-    return {"Success" => true}
   end
 
 end

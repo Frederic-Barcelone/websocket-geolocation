@@ -5,22 +5,11 @@ class DevicesController < ApplicationController
     @devices = current_user.devices
   end
 
+  def sync
+    Pusher['my_channel'].trigger('my_event', {:message => 'hello world'})
+  end
+
   def show
+    p "sync test page"
   end
-
-  def new
-  end
-
-  def edit
-  end
-
-  def update
-  end
-
-  def create
-  end
-
-  def destroy
-  end
-
 end

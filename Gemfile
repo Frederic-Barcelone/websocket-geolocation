@@ -6,6 +6,8 @@ gem 'uuidtools'
 gem 'libxml-ruby'
 gem 'easy_xmlrpc', :git => "git://github.com/mudai/easy_xmlrpc.git"
 gem 'activerecord-import'
+gem 'pusher'
+gem 'settingslogic'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

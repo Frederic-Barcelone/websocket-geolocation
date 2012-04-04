@@ -1,0 +1,15 @@
+# config/application.yml
+defaults: &defaults
+  pusher:
+    app_id: "17176"
+    key: "858bda23f85c70372e00"
+    secret: "54cf66962abdd76422ae"
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+development:
+  <<: *defaults

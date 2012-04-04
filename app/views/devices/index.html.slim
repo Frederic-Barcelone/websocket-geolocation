@@ -1,8 +1,9 @@
 #devices
   h2 デバイスリスト
   - @devices.each do |device|
-    h3= "#{device.model}: #{device.imei}"
+    h3= "#{device.id}: #{device.imei}"
     ul
       li= "device_id : #{device.id}"
+      li= link_to "link", device_path(device.id)
       li= "longitude : #{device.locations.last.try(:longitude)}"
       li= "latitude : #{device.locations.last.try(:latitude)}"

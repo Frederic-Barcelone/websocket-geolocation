@@ -1,0 +1,7 @@
+= javascript_include_tag "http://js.pusher.com/1.11/pusher.min.js"
+javascript:
+  var pusher = new Pusher('858bda23f85c70372e00'); // Replace with your app key
+  var channel = pusher.subscribe('my_channel');
+  channel.bind('my_event', function(data) {
+    alert(data.message);
+  });

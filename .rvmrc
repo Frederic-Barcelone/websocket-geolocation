@@ -1,1 +1,1 @@
-rvm use --create 1.9.2-p290@websocket-geolocation
+rvm use --create ruby-1.9.3-p194@websocket-geolocation
